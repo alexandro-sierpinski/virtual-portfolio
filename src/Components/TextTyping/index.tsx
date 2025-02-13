@@ -8,7 +8,6 @@ type Props = {
   text: string
   styleText?: object
   styleContainer?: object
-  styleBox?: object
   timer?: number
 }
 
@@ -34,11 +33,7 @@ export const TextTyping = (props: Props) => {
     setDisplayText("")
     indexRef.current = 0
 
-    console.log(props.text, 'props.text')
-
     const translatedText = translate(props.text)
-
-    console.log(translatedText, 'translatedText')
 
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = window.setInterval(() => {
@@ -67,14 +62,14 @@ export const TextTyping = (props: Props) => {
       ...props.styleContainer ? props.styleContainer : styles.container,
       transition: "all 0.3s ease",
     }}>
-      <Typography component="main" sx={{ ...styles.text, ...props.styleText }}>
+      <Typography component="main" sx={{ ...styles.text ? styles.text : props.styleText }}>
         {displayText}
-        <span style={{
+        <Typography sx={{
           ...styles.cursor,
           ...(showCursor ? styles.cursorVisible : styles.cursorHidden)
         }}>
           |
-        </span>
+        </Typography>
       </Typography>
     </Box>
   )

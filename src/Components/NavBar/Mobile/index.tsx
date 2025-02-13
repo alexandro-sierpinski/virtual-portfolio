@@ -6,9 +6,11 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import { ThemeContext } from "../../../Context/Theme/Theme"
 import { useContext } from "react"
 import { TranslateContext } from "../../../Context/Languages/Translate"
+import { useNavigate } from "react-router-dom"
 
 export const NavBarMobile = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const navigate = useNavigate();
   const { theme, darkMode, setDarkMode } = useContext(ThemeContext) as {
     theme: any
     darkMode: boolean
@@ -35,6 +37,19 @@ export const NavBarMobile = () => {
       console.error("setLanguage não está definido. Certifique-se de que o UtilsProvider está englobando seu App.")
     }
   }
+
+  const handleButtonClick = (text: string) => {
+    const pageMap = {
+        about: "about",
+        skills: "skills",
+        projects: "projects",
+        experience: "experience",
+        education: "education",
+        resume: "resume",
+    };
+
+    navigate(`/${pageMap[text as keyof typeof pageMap] || ""}`);
+};
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode)
@@ -82,7 +97,7 @@ export const NavBarMobile = () => {
         >
           <List>
             {menuItems.map((item) => (
-              <ListItem key={item}>
+              <ListItem key={item} onClick={() => handleButtonClick(item)}>
                 <ListItemText
                   primary={translate(`navBar.${item}`)} // Traduz os itens dinamicamente
                   sx={{ color: theme.palette.text.primary }}

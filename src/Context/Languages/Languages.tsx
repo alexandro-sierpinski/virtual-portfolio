@@ -1,7 +1,7 @@
 export const Languages = {
     "pt-BR": {
         introTyping: {
-            text: "  Olá Mundo!... Bem-vindo ao meu Portifólio Virtual",
+            text: "  Olá Mundo!... Bem-vindo ao meu Portfólio Virtual",
         },
         navBar: {
             about: "Sobre",
@@ -59,6 +59,9 @@ export const Languages = {
                 },
 
             },
+        },
+        inBuilding: {
+            text: "  Este portfólio ainda está em construção, mas já é possível navegar entre as páginas.",
         },
     },
     "en-US": {
@@ -121,6 +124,9 @@ export const Languages = {
                     keyCompany: "parseint",
                 },
             },
+        },
+        inBuilding: {
+            text: "  This portfolio is still under construction, but it is already possible to navigate between pages.",
         },
     }
 }

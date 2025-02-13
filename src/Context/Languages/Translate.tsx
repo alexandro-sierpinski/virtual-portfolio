@@ -24,12 +24,10 @@ export const TranslateProvider = ({ children }: TranslateProviderProps) => {
     if (savedLanguage && Languages[savedLanguage as keyof typeof Languages]) {
       setLanguage(savedLanguage);
     }
-    console.log("Idioma carregado do localStorage:", savedLanguage);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("language", language);
-    console.log("Idioma atualizado:", language);
   }, [language]);
 
   const translate = (key: string) => {
