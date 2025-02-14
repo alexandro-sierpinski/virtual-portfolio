@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from "react"
 import { Typography, Box } from "@mui/material"
 import { ThemeContext } from "../../Context/Theme/Theme"
 import { getIntroTypingStyles } from "./style"
-import { TranslateContext } from "../../Context/Languages/Translate"
+import { FunctionsContext } from "../../Context/Functions/Functions"
 
 type Props = {
   text: string
@@ -17,14 +17,13 @@ export const TextTyping = (props: Props) => {
   const indexRef = useRef(0)
   const intervalRef = useRef<number | null>(null)
 
-  const { translate, language } = useContext(TranslateContext) as {
+  const { translate, language } = useContext(FunctionsContext) as {
     translate: (key: string) => string
     language: string
   }
 
   const { theme } = useContext(ThemeContext) as {
     theme: any
-    darkMode: boolean
   }
 
   const styles = getIntroTypingStyles(theme)
@@ -60,14 +59,28 @@ export const TextTyping = (props: Props) => {
   return (
     <Box sx={{
       ...props.styleContainer ? props.styleContainer : styles.container,
-      transition: "all 0.3s ease",
+      transition: "all 0.3s ease",      
+      padding: 2,
+      borderRadius: 0,
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      overflow: "hidden",      
+      touchAction: "manipulation",  
     }}>
-      <Typography component="main" sx={{ ...styles.text ? styles.text : props.styleText }}>
-        {displayText}
-        <Typography sx={{
-          ...styles.cursor,
-          ...(showCursor ? styles.cursorVisible : styles.cursorHidden)
+      <Typography
+        component="main"
+        sx={{
+          ...props.styleText ? props.styleText : styles.text
         }}>
+        {displayText}
+        <Typography
+          component="span"
+          sx={{
+            ...styles.cursor,
+            ...(showCursor ? styles.cursorVisible : styles.cursorHidden)
+          }}>
           |
         </Typography>
       </Typography>

@@ -3,8 +3,9 @@ import { ThemeContext } from "../../../Context/Theme/Theme"
 import { useContext } from "react"
 
 export const FooterDesktop = () => {
-    const { theme } = useContext(ThemeContext) as {
+    const { theme, darkMode  } = useContext(ThemeContext) as {
         theme: any
+        darkMode: boolean
     }
     return (
         <Box
@@ -14,9 +15,10 @@ export const FooterDesktop = () => {
                 width: "100%",
                 textAlign: "center",
                 py: 2,
-                backgroundColor: theme.palette.background.default,
+                backgroundColor: darkMode ? "transparent" : theme.palette.background.default,
                 color: theme.palette.text.primary,
                 bottom: 0,
+                transition: "all 0.3s ease",
             }}
         >
             <Typography variant="body2">© 2025 - Todos os direitos reservados.</Typography>

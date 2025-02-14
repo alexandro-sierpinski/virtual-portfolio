@@ -9,12 +9,12 @@ export const getPageStyles = (theme: Theme) => ({
     color: theme.palette.text.primary, // 🔥 Pega do theme
     background: theme.palette.background.default, // 🔥 Fundo adaptável ao tema
     touchAction: "manipulation",
-    transition: "color 600ms cubic-bezier(0.48, 0, 0.12, 1)",
+    transition: "all 0.3s ease",
   } as CSSProperties,
 
   firstSpan: {
     position: "relative",
-    transition: "color 600ms cubic-bezier(0.48, 0, 0.12, 1)",    
+    transition: "all 0.3s ease",  
   } as CSSProperties,
 
   lastSpan: {
@@ -22,7 +22,7 @@ export const getPageStyles = (theme: Theme) => ({
     display: "block",
     position: "absolute",
     bottom: 0,
-    transition: "all 500ms cubic-bezier(0.48, 0, 0.12, 1)",
+    transition: "all 0.3s ease",
     zIndex: 100,
     opacity: 0,
     top: "50%",

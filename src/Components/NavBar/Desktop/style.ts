@@ -13,17 +13,16 @@ export const getButtonStyles = (theme: Theme) => ({
     lineHeight: "1.5", // match h3 line-height
     padding: "18px 18px 17px",
     textDecoration: "none",
-    cursor: "pointer",
-    background: theme.palette.background.default,
+    cursor: "pointer",    
     userSelect: "none",
     WebkitUserSelect: "none",
     touchAction: "manipulation",
-    transition: "color 600ms cubic-bezier(0.48, 0, 0.12, 1)",
+    transition: "all 0.3s ease",
   } as CSSProperties,
 
   firstSpan: {
     position: "relative",
-    transition: "color 600ms cubic-bezier(0.48, 0, 0.12, 1)",
+    transition: "all 0.3s ease",
     zIndex: 10,
   } as CSSProperties,
 
@@ -32,7 +31,7 @@ export const getButtonStyles = (theme: Theme) => ({
     display: "block",
     position: "absolute",
     bottom: 0,
-    transition: "all 500ms cubic-bezier(0.48, 0, 0.12, 1)",
+    transition: "all 0.3s ease",
     zIndex: 100,
     opacity: 0,
     top: "50%",
@@ -50,7 +49,7 @@ export const getButtonStyles = (theme: Theme) => ({
     width: "0%",  // Start with no width
     height: "1px", // Line thickness
     backgroundColor: theme.palette.text.secondary, // Underline color
-    transition: "width 0.25s ease-out, left 0.25s ease-out", // Animate width and left position
+    transition: "all 0.3s ease", // Animate width and left position
     zIndex: 50,
     transform: "translateX(-50%)",  // Center the underline horizontally
     transformOrigin: "bottom center",  // Start the transformation from the center
@@ -60,13 +59,13 @@ export const getButtonStyles = (theme: Theme) => ({
     "&::after": {
       width: "100%", // Expands to full width on hover
     },
-    "& span:last-child": {
+    "& span:last-of-type": {
       transform: "translateX(-50%) translateY(-100%)",
       opacity: 1,
-      transition: "all 900ms cubic-bezier(0.48, 0, 0.12, 1)",
+      transition: "all 0.3s ease",
     },
-    "& span:first-child": {
-      transition: "color 600ms cubic-bezier(0.48, 0, 0.12, 1)",
+    "& span:first-of-type": {
+      transition: "all 0.3s ease",
     },
   } as CSSProperties,
 })

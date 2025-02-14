@@ -5,14 +5,14 @@ import { getButtonStyles } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../Context/Theme/Theme"; // Importing the ThemeContext
-import { TranslateContext } from "../../../Context/Languages/Translate";
+import { FunctionsContext } from "../../../Context/Functions/Functions";
 
 export const NavBarDesktop = () => {
     const { theme, setDarkMode } = useContext(ThemeContext) as {
         theme: any;
         setDarkMode: (darkMode: boolean) => void;
     };
-    const { translate, language, setLanguage } = useContext(TranslateContext) as {
+    const { translate, language, setLanguage } = useContext(FunctionsContext) as {
         translate: (key: string) => string;
         language: string;
         setLanguage: (language: string) => void;
@@ -65,9 +65,10 @@ export const NavBarDesktop = () => {
             sx={{
                 boxShadow: "none",
                 borderBottom: `1px solid ${theme.palette.divider}`,
-                backgroundColor: theme.palette.background.paper,
+                backgroundColor: darkMode ? "transparent" : theme.palette.background.default,
+                transition: "all 0.3s ease",
             }}
-        >
+            >               
             <Toolbar sx={{ height: "100%", justifyContent: "space-between", alignItems: "center", minHeight: "50px" }}>
                 <Box sx={{ display: "flex", flexGrow: 1, justifyContent: "space-evenly", height: "100%", alignItems: "center" }}>
                     {["about", "skills", "projects", "experience", "education", "resume"].map((text) => (

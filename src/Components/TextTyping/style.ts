@@ -13,8 +13,6 @@ export const getIntroTypingStyles = (theme: Theme) => ({
     fontSize: "50px",
     fontWeight: "bold",
     textAlign: "center",
-    backgroundColor: theme.palette.background.default,
-    color: theme.palette.text.secondary,
     transition: "background-color 0.3s ease-in-out",
     overflow: "visible",
   } as CSSProperties,
@@ -25,15 +23,17 @@ export const getIntroTypingStyles = (theme: Theme) => ({
     overflow: "hidden",
     fontSize: "20px",
     fontFamily: "'Press Start 2P', 'Courier New', monospace",
+    color: theme.palette.text.secondary,
     textOverflow: "ellipsis",
+    fontWeight: "bold",
+    transition: "all 0.3s ease",
   } as CSSProperties,
 
   cursor: {
     width: "12px",
     height: "26px",
     backgroundColor: theme.palette.text.secondary,
-    marginLeft: "5px",
-    display: "inline-block",
+    marginLeft: "5px",    
     transition: "opacity 0.3s ease-in-out",
   } as CSSProperties,
 

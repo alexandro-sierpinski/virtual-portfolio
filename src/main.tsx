@@ -3,14 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { App } from './App.tsx'
 import { ThemeProvider } from './Context/Theme/Theme.tsx'
-import { TranslateProvider } from './Context/Languages/Translate.tsx'
+import { FunctionsProvider } from './Context/Functions/Functions.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <TranslateProvider>
+    <FunctionsProvider>
       <ThemeProvider>
         <App />
       </ThemeProvider>
-    </TranslateProvider>
+    </FunctionsProvider>
   </React.StrictMode>
 )

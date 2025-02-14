@@ -1,36 +1,55 @@
-import { Box, Divider, Typography, Button } from "@mui/material";
-import { ThemeContext } from "../../Context/Theme/Theme";
-import { useContext, useState } from "react";
-import { getPageStyles } from "../StylePages/style";
-import { TranslateContext } from "../../Context/Languages/Translate";
-import { ExperienceCard } from "../../Components/ExperienceCard";
-import { TextTyping } from "../../Components/TextTyping";
-import { getExperienceStyles } from "./style";
+import { Box, Divider, Typography, useMediaQuery, styled, Dialog } from "@mui/material"
+import { ThemeContext } from "../../Context/Theme/Theme"
+import { useContext, useState } from "react"
+import { getPageStyles } from "../StylePages/style"
+import { FunctionsContext } from "../../Context/Functions/Functions"
+import { ExperienceCard } from "../../Components/ExperienceCard"
+import { TextTyping } from "../../Components/TextTyping"
+import { getExperienceStyles } from "./style"
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}))
 
 export const Experience = () => {
   const { theme } = useContext(ThemeContext) as {
-    theme: any;
-  };
+    theme: any
+  }
 
-  const { translate, getCompanies } = useContext(TranslateContext) as {
-    translate: any;
-    language: string;
-    getCompanies: () => any;
-  };
+  const { translate, getCompanies } = useContext(FunctionsContext) as {
+    translate: any
+    language: string
+    getCompanies: () => any
+  }
 
-  const styles = getExperienceStyles(theme);
+  const [open, setOpen] = useState(false)
 
-  const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
-  const [experienceKey, setExperienceKey] = useState<number>(0); // Chave única para forçar a renderização
+  const isMobile = useMediaQuery('(max-width: 600px)')
 
-  const pageStyles = getPageStyles(theme);
+  const styles = getExperienceStyles(theme)
+
+  const [selectedExperience, setSelectedExperience] = useState<string | null>(null)
+  const [experienceKey, setExperienceKey] = useState<number>(0) // Chave única para forçar a renderização
+
+  const pageStyles = getPageStyles(theme)
 
   const handleExperienceCardClick = (text: string) => {
-    setSelectedExperience(text); // Atualiza o texto da experiência selecionada
-    setExperienceKey((prevKey) => prevKey + 1); // Atualiza a chave para forçar a renderização
-  };
+    setSelectedExperience(text) // Atualiza o texto da experiência selecionada
+    setExperienceKey((prevKey) => prevKey + 1) // Atualiza a chave para forçar a renderização
+    if (isMobile) {
+      setOpen(true)
+    }
+  }
 
-  const experiences = getCompanies() ? Object.values(getCompanies()) : [];
+  const experiences = getCompanies() ? Object.values(getCompanies()) : []
+
+  /* essa lógica garante que se adicionar mais empresas no arquivo Languages.tsx, o divider será exibido */
+  const shouldShowDivider = experiences.length > 3 && experiences.length % 3 === 0
 
   return (
     <Box
@@ -52,14 +71,14 @@ export const Experience = () => {
         </Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%" }}>
-        <Box sx={{ position: "relative", width: "60%", padding: "20px 0" }}>
+        <Box sx={{ position: "relative", width: isMobile ? "100%" : "60%", padding: "20px 0" }}>
           <Divider
             orientation="vertical"
             sx={{
               position: "absolute",
               left: "50%",
               top: 0,
-              bottom: 0,
+              bottom: 0,              
               backgroundColor: theme.palette.divider,
               borderRight: "1px dashed rgba(0, 0, 0, 0.12)",
               zIndex: 0,
@@ -74,66 +93,75 @@ export const Experience = () => {
                   display: "flex",
                   justifyContent: index % 2 === 0 ? "flex-start" : "flex-end",
                   width: "100%",
-                  padding: "20px 0",
+                  maxHeight: "300px",
+                  padding: "20px 0",                  
                 }}
+                onClick={() => handleExperienceCardClick(exp.keyCompany)}
               >
-                <Button
-                  sx={{
-                    height: "230px",
-                    width: "400px",
-                    padding: 0,
-                    minWidth: "auto",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textTransform: "none",
-                    position: "relative",
-                    overflow: "hidden",
-                    transition: "transform 0.3s ease",
-                    "&:hover": {
-                      transform: index % 2 === 0 ? "rotate(-5deg)" : "rotate(5deg)", // Rotate left or right
-                    },
-                  }}
-                  onClick={() => handleExperienceCardClick(exp.keyCompany)} // Passa a experiência completa
-                >
                   <ExperienceCard
                     title={exp.name}
                     description={exp.duration}
-                    color={theme.palette.text.secondary}
-                    icon={exp.icon}
-                  />
-                </Button>
+                    logo={exp.logo}
+                    index={index}
+                  />                  
+                
               </Box>
             ))}
           </Box>
-        </Box>
-        <Box
-          sx={{
-            width: "40%",
-            height: "100vh",
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            transition: "all 0.3s ease",
-            alignItems: "center",
-            ...pageStyles.base,
-            borderRadius: "10px",
-            backgroundColor: theme.palette.background.default, // Cor de fundo temporária
-            color: theme.palette.text.primary,
-            padding: "20px",
-            textAlign: "center",
-          }}
-        >
-          {selectedExperience && ( // Renderiza o TextTyping apenas se houver uma experiência selecionada
-            <TextTyping
-              key={experienceKey} // Chave única para forçar a nova renderização
-              text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente
-              timer={20}
-              styleContainer={styles.textTypingContainer}
+          {shouldShowDivider && (
+            <Divider
+              orientation="vertical"
+              sx={{
+                position: "absolute",
+                left: "50%",
+                top: 0,
+                bottom: 0,
+                backgroundColor: theme.palette.divider,
+                borderRight: "1px dashed rgba(0, 0, 0, 0.12)",
+                zIndex: 0,
+              }}
             />
           )}
         </Box>
+        <Box
+          sx={{           
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            ...pageStyles.base,
+            
+          }}
+        >
+          {
+            (isMobile && selectedExperience) ? (
+              // Aqui você pode colocar o que deve acontecer quando for mobile e selectedExperience
+              <BootstrapDialog
+                onClose={() => setOpen(false)}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+              >
+                <TextTyping
+                  key={experienceKey} // Chave única para forçar a nova renderização
+                  text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente
+                  timer={20}
+                  styleContainer={styles.textTypingContainer}
+                />
+
+              </BootstrapDialog>
+            ) : (
+              // Caso contrário, apenas a condição de selectedExperience
+              selectedExperience && (
+                <TextTyping
+                  key={experienceKey} // Chave única para forçar a nova renderização
+                  text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente                  
+                  timer={20}
+                  styleContainer={styles.textTypingContainer}                  
+                />
+              )
+            )
+          }
+        </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}

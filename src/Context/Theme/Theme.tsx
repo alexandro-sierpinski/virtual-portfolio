@@ -5,11 +5,13 @@ declare module "@mui/material/styles" {
     interface Theme {
         custom: {
             cardColor: string;
+            cardGradient?: string;
         };
     }
     interface ThemeOptions {
         custom?: {
             cardColor?: string;
+            cardGradient?: string;
         };
     }
 }
@@ -35,8 +37,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
                 main: darkMode ? "#23e875" : "#ad1186",
             },
             background: {
-                default: darkMode ? "#121212" : "#f1f1f1",
-                paper: darkMode ? "#121212" : "#f1f1f1",
+                default: darkMode ? "transparent" : "#f1f1f1",
+                paper: darkMode ? "rgba(18, 18, 18, 0.7)" : "#f1f1f1",
             },
             divider: darkMode ? "#23e875" : "#ad1186",
             text: {
@@ -45,7 +47,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
             },
         },
         custom: {
-            cardColor: darkMode ? "#23e875" : "#ad1186",
+            cardColor: darkMode ? "rgba(35, 232, 117, 0.7)" : "#f1f1f1",
+            cardGradient: darkMode ? 
+                "linear-gradient(to top, rgba(28, 156, 84,0.4), rgba(28, 156, 84,0) 200px), linear-gradient(to top, rgba(28, 156, 84,0.8), rgba(28, 156, 84,0) 300px)" 
+                : 
+                "linear-gradient(to top, rgba(54, 10, 43,0.4), rgba(54, 10, 43,0) 200px), linear-gradient(to top, rgba(54, 10, 43,0.8), rgba(54, 10, 43,0) 300px)",
         },
     });
 

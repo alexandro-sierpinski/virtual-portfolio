@@ -2,14 +2,14 @@ import { Box } from "@mui/material"
 import { ThemeContext } from "../../Context/Theme/Theme"
 import { useContext } from "react"
 import { TextTyping } from "../../Components/TextTyping"
-import { TranslateContext } from "../../Context/Languages/Translate"
+import { FunctionsContext } from "../../Context/Functions/Functions"
 
 export const Skills = () => {
   const { theme } = useContext(ThemeContext) as {
     theme: any
   }
 
-  const { translate } = useContext(TranslateContext) as {
+  const { translate } = useContext(FunctionsContext) as {
     translate: (key: string) => string
   }
 
@@ -25,6 +25,6 @@ export const Skills = () => {
         transition: 'all 0.3s ease',
         }}>
       <TextTyping text={translate("inBuilding.text")} />
-    </Box>
+    </Box>      
   )
 }

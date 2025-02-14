@@ -5,7 +5,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import { ThemeContext } from "../../../Context/Theme/Theme"
 import { useContext } from "react"
-import { TranslateContext } from "../../../Context/Languages/Translate"
+import { FunctionsContext } from "../../../Context/Functions/Functions"
 import { useNavigate } from "react-router-dom"
 
 export const NavBarMobile = () => {
@@ -16,7 +16,7 @@ export const NavBarMobile = () => {
     darkMode: boolean
     setDarkMode: (darkMode: boolean) => void
   }
-  const { language, setLanguage, translate } = useContext(TranslateContext) as {
+  const { language, setLanguage, translate } = useContext(FunctionsContext) as {
     language: string
     setLanguage: (language: string) => void
     translate: (key: string) => string
@@ -40,16 +40,16 @@ export const NavBarMobile = () => {
 
   const handleButtonClick = (text: string) => {
     const pageMap = {
-        about: "about",
-        skills: "skills",
-        projects: "projects",
-        experience: "experience",
-        education: "education",
-        resume: "resume",
+      about: "about",
+      skills: "skills",
+      projects: "projects",
+      experience: "experience",
+      education: "education",
+      resume: "resume",
     };
 
     navigate(`/${pageMap[text as keyof typeof pageMap] || ""}`);
-};
+  };
 
   const handleThemeChange = () => {
     setDarkMode(!darkMode)
@@ -66,8 +66,9 @@ export const NavBarMobile = () => {
         sx={{
           height: "50px",
           boxShadow: "none",
-          backgroundColor: theme.palette.background.default,
-          borderBottom: theme.palette.mode === "dark" ? "1px solid rgba(255, 255, 255, 0.2)" : "1px solid rgba(0, 0, 0, 0.2)",
+          borderBottom: `1px solid ${theme.palette.divider}`,
+          backgroundColor: darkMode ? "transparent" : theme.palette.background.default,
+          transition: "all 0.3s ease",
         }}
       >
         <Toolbar sx={{ height: "100%", justifyContent: "space-between", alignItems: "center", minHeight: "50px" }}>
@@ -89,7 +90,10 @@ export const NavBarMobile = () => {
           sx={{
             width: 250,
             backgroundColor: theme.palette.background.default,
-            height: "100%"
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
           role="presentation"
           onClick={toggleDrawer(false)}
@@ -105,11 +109,12 @@ export const NavBarMobile = () => {
               </ListItem>
             ))}
           </List>
-          <Box sx={{
+          <Box 
+          component="footer"
+          sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
+            alignItems: "center",            
           }}>
             <IconButton
               color="inherit"
