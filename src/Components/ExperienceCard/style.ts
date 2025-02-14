@@ -1,11 +1,11 @@
-import { Theme } from "@mui/material/styles";
-import { CSSProperties } from "react";
+import { Theme } from "@mui/material/styles"
+import { CSSProperties } from "react"
 
-export const getCardStyles = (theme: Theme, index: number) => ({
+export const getCardStyles = (theme: Theme, index: number, isMobile: boolean, darkMode: boolean) => ({
   cardBox: {
     height: "250px",
     cursor: "pointer",
-    width: "calc(100% - 530px)",
+    width: isMobile ? "calc(100% - 180px)" : "calc(100% - 530px)",
     perspective: '1000px',
     transition: 'transform 0.4s',
     '& > div, & > div > div': {
@@ -28,7 +28,7 @@ export const getCardStyles = (theme: Theme, index: number) => ({
     minHeight: '200px',
     width: 320,
     backgroundColor: '#fff',
-    borderColor: '#000',
+    borderColor: darkMode ? '#000' : '#fff',
     background: theme.custom.cardGradient,
   } as CSSProperties,
 
@@ -41,7 +41,9 @@ export const getCardStyles = (theme: Theme, index: number) => ({
   } as CSSProperties,
 
   cardCover: {
-    background: 'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)',
+    background: darkMode ? 
+            'linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px)' : 
+            'linear-gradient(to top, rgba(54, 10, 43, 0.4), rgba(54, 10, 43, 0) 200px), linear-gradient(to top, rgba(54, 10, 43, 0.8), rgba(54, 10, 43, 0) 300px)',
     border: '1px solid',
     borderColor: theme.custom.cardGradient,
     backdropFilter: 'blur(1px)',
@@ -65,7 +67,9 @@ export const getCardStyles = (theme: Theme, index: number) => ({
   cardContentLogo: {
     alignItems: 'self-end',
     justifyContent: 'flex-end',
-    background: 'linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.3))',
+    background:darkMode ? 
+            'linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0.3))' : 
+            'linear-gradient(to top, rgba(54, 10, 43, 3), rgba(54, 10, 43, 0.3)))',
     border: '1px solid',
     borderRadius: '5px',
     borderColor: '#000',

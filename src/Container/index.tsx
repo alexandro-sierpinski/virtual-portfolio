@@ -12,7 +12,7 @@ import { TextTyping } from "../Components/TextTyping"
 export const Container = () => {
   const [showNavBar, setShowNavBar] = useState(false) // Controla a visibilidade do NavBar
   const isMobile = useMediaQuery("(max-width: 600px)")
-  const location = useLocation()  
+  const location = useLocation()
   // Páginas definidas no Router
   const validRoutes = ["/about", "/skills", "/projects", "/experience", "/education", "/resume"]
   const isOnPage = validRoutes.includes(location.pathname)
@@ -32,35 +32,35 @@ export const Container = () => {
   return (
     <Box sx={{
       ...styles.primalBox
-    }}>
-      {/* Renderiza o NavBar com a animação de fade-in */}
-      <Box
-        sx={{
-          ...styles.navBar,
-          opacity: showNavBar ? 1 : 0,
-          transition: "opacity 2s ease-in-out",
-        }}
-      >
-        {isMobile ? <NavBarMobile /> : <NavBarDesktop />}
-      </Box>
+    }}>      
+      {/* Renderiza o NavBar com a animação de fade-in */}      
+        <Box
+          sx={{
+            ...styles.navBar,
+            opacity: showNavBar ? 1 : 0,
+            transition: "opacity 2s ease-in-out",
+          }}
+        >
+          {isMobile ? <NavBarMobile /> : <NavBarDesktop />}
+        </Box>
 
-      {/* Conteúdo */}
-      <Box sx={{
-        ...styles.bodyBox
-      }}>
-        {isOnPage ? <Outlet /> : <TextTyping text={`introTyping.text`} />}
-      </Box>
+        {/* Conteúdo */}
+        <Box sx={{
+          ...styles.bodyBox,
+        }}>
+          {isOnPage ? <Outlet /> : <TextTyping text={`introTyping.text`} />}
+        </Box>
 
-      {/* Footer */}
-      <Box
-        sx={{
-          ...styles.navBar,
-          opacity: showNavBar ? 1 : 0,
-          transition: "opacity 2s ease-in-out",
-        }}
-      >
-        {isMobile ? <FooterMobile /> : <FooterDesktop />}
-      </Box>
+        {/* Footer */}
+        <Box
+          sx={{
+            ...styles.navBar,
+            opacity: showNavBar ? 1 : 0,
+            transition: "opacity 2s ease-in-out",
+          }}
+        >
+          {isMobile ? <FooterMobile /> : <FooterDesktop />}
+        </Box>      
     </Box>
   )
 }

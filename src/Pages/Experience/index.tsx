@@ -1,29 +1,32 @@
-import { Box, Divider, Typography, useMediaQuery, styled, Dialog } from "@mui/material"
+import { AppBar, Avatar, Box, Button, Dialog, Divider, IconButton, List, Slide, Toolbar, Typography, useMediaQuery } from "@mui/material"
 import { ThemeContext } from "../../Context/Theme/Theme"
-import { useContext, useState } from "react"
+import { forwardRef, useContext, useState } from "react"
 import { getPageStyles } from "../StylePages/style"
 import { FunctionsContext } from "../../Context/Functions/Functions"
 import { ExperienceCard } from "../../Components/ExperienceCard"
 import { TextTyping } from "../../Components/TextTyping"
 import { getExperienceStyles } from "./style"
+import { TransitionProps } from "@mui/material/transitions"
+import CloseIcon from '@mui/icons-material/Close';
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<unknown>;
   },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}))
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const Experience = () => {
   const { theme } = useContext(ThemeContext) as {
     theme: any
   }
 
-  const { translate, getCompanies } = useContext(FunctionsContext) as {
+  const { translate, getCompanies, language, setLanguage } = useContext(FunctionsContext) as {
     translate: any
     language: string
+    setLanguage: (language: string) => void
     getCompanies: () => any
   }
 
@@ -31,7 +34,7 @@ export const Experience = () => {
 
   const isMobile = useMediaQuery('(max-width: 600px)')
 
-  const styles = getExperienceStyles(theme)
+  const styles = getExperienceStyles(theme, isMobile)
 
   const [selectedExperience, setSelectedExperience] = useState<string | null>(null)
   const [experienceKey, setExperienceKey] = useState<number>(0) // Chave única para forçar a renderização
@@ -46,65 +49,71 @@ export const Experience = () => {
     }
   }
 
+  const handleLanguageChange = (event: React.MouseEvent) => {
+    event.stopPropagation() // Impede a propagação do clique e o fechamento do Drawer
+    if (setLanguage) {
+      setLanguage(language === "pt-BR" ? "en-US" : "pt-BR")
+    } else {
+      console.error("setLanguage não está definido. Certifique-se de que o UtilsProvider está englobando seu App.")
+    }
+  }
+
   const experiences = getCompanies() ? Object.values(getCompanies()) : []
 
   /* essa lógica garante que se adicionar mais empresas no arquivo Languages.tsx, o divider será exibido */
-  const shouldShowDivider = experiences.length > 3 && experiences.length % 3 === 0
+  const shouldShowDivider = (experiences.length > 3 && experiences.length % 3 === 0) && !isMobile
 
   return (
     <Box
       sx={{
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
-        padding: 2,
-        borderRadius: 0,
-        transition: "all 0.3s ease",
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        ...pageStyles.base,
+        ...styles.container,
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Typography sx={pageStyles.firstSpan} variant="h1" gutterBottom>
-          {translate(`experience.title`)}
+      <Box sx={{
+        ...styles.boxExperienceTitle
+      }}>
+        <Typography sx={{
+          ...pageStyles.firstSpan
+        }}
+          variant="h1"
+          gutterBottom>
+          { isMobile ? (language === "pt-BR" ? "Meu XP" : "My XP") : translate(`experience.title`)}
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", width: "100%" }}>
-        <Box sx={{ position: "relative", width: isMobile ? "100%" : "60%", padding: "20px 0" }}>
-          <Divider
-            orientation="vertical"
-            sx={{
-              position: "absolute",
-              left: "50%",
-              top: 0,
-              bottom: 0,              
-              backgroundColor: theme.palette.divider,
-              borderRight: "1px dashed rgba(0, 0, 0, 0.12)",
-              zIndex: 0,
-            }}
-          />
-
-          <Box sx={{ position: "relative", zIndex: 1, display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Box sx={{
+        ...styles.boxExperiences
+      }}>
+        <Box sx={{
+          ...styles.boxDivider
+        }}>
+          {!isMobile && (
+            <Divider
+              orientation="vertical"
+              sx={{
+                ...styles.divider
+              }}
+            />
+          )}
+          <Box sx={{
+            ...styles.boxCardExperience
+          }}>
             {experiences.map((exp: any, index: number) => (
               <Box
                 key={index}
                 sx={{
-                  display: "flex",
                   justifyContent: index % 2 === 0 ? "flex-start" : "flex-end",
-                  width: "100%",
-                  maxHeight: "300px",
-                  padding: "20px 0",                  
+                  ...styles.CardExperience
                 }}
                 onClick={() => handleExperienceCardClick(exp.keyCompany)}
               >
-                  <ExperienceCard
-                    title={exp.name}
-                    description={exp.duration}
-                    logo={exp.logo}
-                    index={index}
-                  />                  
-                
+                <ExperienceCard
+                  title={exp.name}
+                  description={exp.duration}
+                  logo={exp.logo}
+                  index={index}
+                  isMobile={isMobile}
+                />
+
               </Box>
             ))}
           </Box>
@@ -112,42 +121,74 @@ export const Experience = () => {
             <Divider
               orientation="vertical"
               sx={{
-                position: "absolute",
-                left: "50%",
-                top: 0,
-                bottom: 0,
-                backgroundColor: theme.palette.divider,
-                borderRight: "1px dashed rgba(0, 0, 0, 0.12)",
-                zIndex: 0,
+                ...styles.divider
               }}
             />
           )}
         </Box>
         <Box
-          sx={{           
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            ...pageStyles.base,
-            
+          sx={{
+            ...styles.boxTextTyping
           }}
         >
           {
             (isMobile && selectedExperience) ? (
-              // Aqui você pode colocar o que deve acontecer quando for mobile e selectedExperience
-              <BootstrapDialog
-                onClose={() => setOpen(false)}
-                aria-labelledby="customized-dialog-title"
+              // Aqui você pode colocar o que deve acontecer quando for mobile e selectedExperience                
+              <Dialog
+                fullScreen
                 open={open}
+                onClose={() => setOpen(false)}
+                TransitionComponent={Transition}
+                sx={{
+                  ...styles.dialogExperience
+                }}
               >
-                <TextTyping
-                  key={experienceKey} // Chave única para forçar a nova renderização
-                  text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente
-                  timer={20}
-                  styleContainer={styles.textTypingContainer}
-                />
+                <AppBar sx={{
+                  ...styles.appBarExperience
+                }}>
+                  <Toolbar
+                    sx={{
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <IconButton
+                      edge="start"
+                      onClick={() => setOpen(false)}
+                      aria-label="close"
+                    >
+                      <CloseIcon sx={{ color: theme.palette.text.secondary }} />
+                    </IconButton>
+                    <Box
+                      sx={{
+                        ...styles.cardContentLogo,
+                      }}
+                    >
+                      <Avatar
+                        src={translate(`experience.companies.${selectedExperience}.logo`)}
+                        variant="square"
+                        sx={{
+                          ...styles.avatarExperience
+                        }} />
+                    </Box>
+                    <Button
+                      sx={{
+                        color: theme.palette.text.secondary
+                      }}
+                      onClick={handleLanguageChange}>
+                      {language === "pt-BR" ? "PT" : "EN"}
+                    </Button>
+                  </Toolbar>
+                </AppBar>
+                <List>
+                  <TextTyping
+                    key={experienceKey} // Chave única para forçar a nova renderização
+                    text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente
+                    timer={20}
+                    styleContainer={styles.textTypingContainerMobile}
+                  />
+                </List>
+              </Dialog>
 
-              </BootstrapDialog>
             ) : (
               // Caso contrário, apenas a condição de selectedExperience
               selectedExperience && (
@@ -155,7 +196,7 @@ export const Experience = () => {
                   key={experienceKey} // Chave única para forçar a nova renderização
                   text={`experience.companies.${selectedExperience}.textTyping`} // Passa o texto da experiência diretamente                  
                   timer={20}
-                  styleContainer={styles.textTypingContainer}                  
+                  styleContainer={styles.textTypingContainerDesktop}
                 />
               )
             )

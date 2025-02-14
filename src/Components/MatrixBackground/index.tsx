@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import { getMatrixBackgroundStyles } from "./style";
 import { ThemeContext } from "../../Context/Theme/Theme";
 import { Container } from "../../Container";
+import { globalStyles } from "../../globalStyles";
 
 export const MatrixBackground = () => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -13,7 +14,7 @@ export const MatrixBackground = () => {
     };
 
     useEffect(() => {
-        if (!darkMode) return; // Garante que só roda se o darkMode estiver ativo
+        if (!darkMode) return;
 
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -21,17 +22,15 @@ export const MatrixBackground = () => {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
-        // Redimensiona o canvas
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpa o canvas ao redimensionar
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         };
 
-        resizeCanvas(); // Ajusta o tamanho inicial
+        resizeCanvas();
         window.addEventListener("resize", resizeCanvas);
 
-        // Caracteres do efeito Matrix
         const matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
         const matrixArray = matrix.split("");
 
@@ -64,13 +63,23 @@ export const MatrixBackground = () => {
             clearInterval(interval);
             window.removeEventListener("resize", resizeCanvas);
         };
-    }, [darkMode, theme.palette.divider]); // Atualiza se o tema mudar
+    }, [darkMode, theme.palette.divider]);
 
     return (
-        <Box>
+        <Box sx={{
+            position: "relative",
+            overflow: "overlay",
+        }}>
+            {globalStyles(theme)}
             {darkMode && (
-                <Box sx={stylesMatrixBackground.canvasContainer}>
-                    <canvas ref={canvasRef} style={stylesMatrixBackground.canvas} />
+                <Box sx={{
+                    ...stylesMatrixBackground.canvasContainer
+                }}>
+                    <canvas ref={canvasRef}
+                        style={{
+                            ...stylesMatrixBackground.canvas,
+                        }}
+                    />
                 </Box>
             )}
             <Container />

@@ -3,7 +3,7 @@ import { CSSProperties } from "react";
 export const getContainerStyles = (isOnPage: boolean) => ({
   primalBox: {
     position: "relative",
-    overflow: "hidden",
+    overflow: "overlay",
     display: "flex",
     flexDirection: "column",
     minHeight: "100vh",

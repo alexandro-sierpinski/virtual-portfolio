@@ -1,6 +1,6 @@
-import { Avatar, Box, Divider, Stack } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Dialog, Divider, IconButton, List, Slide, Stack, Toolbar, useMediaQuery } from "@mui/material";
 import { ThemeContext } from "../../Context/Theme/Theme";
-import { useContext } from "react";
+import { forwardRef, useContext, useState } from "react";
 import { TextTyping } from "../../Components/TextTyping";
 import { FunctionsContext } from "../../Context/Functions/Functions";
 import { getAboutStyles } from "./style";
@@ -18,101 +18,206 @@ import junit_logo from "../../Assets/junit_logo.png";
 import mongo_logo from "../../Assets/mongoDB_logo.png";
 import node_logo from "../../Assets/node_logo.svg";
 import { ImageSlider } from "../../Components/ImageSlider";
+import { TransitionProps } from "@mui/material/transitions";
+import CloseIcon from '@mui/icons-material/Close';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<unknown>;
+  },
+  ref: React.Ref<unknown>,
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const About = () => {
-  const { theme } = useContext(ThemeContext) as {
+  const { theme, darkMode, setDarkMode } = useContext(ThemeContext) as {
     theme: any;
+    darkMode: boolean;
+    setDarkMode: (darkMode: boolean) => void;
   };
 
-  const { translate } = useContext(FunctionsContext) as {
+  const { translate, language, setLanguage } = useContext(FunctionsContext) as {
     translate: (key: string) => string;
+    language: string;
+    setLanguage: (language: string) => void;
   };
 
-  const styles = getAboutStyles(theme);
+  const [open, setOpen] = useState(false)
+
+  const isMobile = useMediaQuery('(max-width: 600px)');
+
+  const styles = getAboutStyles(theme, isMobile);
+
+  const handleExperienceCardClick = () => {
+    setOpen(true)
+  }
+
+  const handleLanguageChange = (event: React.MouseEvent) => {
+    event.stopPropagation() // Impede a propagação do clique e o fechamento do Drawer
+    if (setLanguage) {
+      setLanguage(language === "pt-BR" ? "en-US" : "pt-BR")
+    } else {
+      console.error("setLanguage não está definido. Certifique-se de que o UtilsProvider está englobando seu App.")
+    }
+  }
+
+  const handleThemeChange = () => {
+    setDarkMode(!darkMode)
+    localStorage.setItem("darkMode", darkMode.toString())
+  }
 
   const listCarousel = [
-    delphi_Logo_12,
-    java_Logo,
-    react,
-    javascript_logo,
-    python_logo,
-    django_logo,
-    electron_logo,
-    firebird_logo,
-    hibernate_logo,
-    junit_logo,
-    mongo_logo,
-    node_logo,
+    {
+      image: delphi_Logo_12,
+      text: "Delphi"
+    },
+    {
+      image: java_Logo,
+      text: "Java"
+    },
+    {
+      image: react,
+      text: "React"
+    },
+    {
+      image: javascript_logo,
+      text: "JavaScript"
+    },
+    {
+      image: python_logo,
+      text: "Python"
+    },
+    {
+      image: django_logo,
+      text: "Django"
+    },
+    {
+      image: electron_logo,
+      text: "Electron"
+    },
+    {
+      image: firebird_logo,
+      text: "Firebird"
+    },
+    {
+      image: hibernate_logo,
+      text: "Hibernate"
+    },
+    {
+      image: junit_logo,
+      text: "JUnit"
+    },
+    {
+      image: mongo_logo,
+      text: "MongoDB"
+    },
+    {
+      image: node_logo,
+      text: "Node.js"
+    },
   ];
 
   return (
     <Box
-      sx={{        
-        padding: 1,
-        borderRadius: 0,
-        transition: "all 0.3s ease",
-        flex: 1,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        position: "relative", // Adicionado para garantir que o z-index funcione
-        zIndex: 3, // Definindo z-index
-        opacity: 1, // Definindo opacidade        
+      sx={{
+        ...styles.container,
       }}
-    >      
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "70%",          
-        }}
-      >
-        <TextTyping
-          text={translate(`about.text`)}
-          styleContainer={styles.textTypingContainer}
-          styleText={styles.text}
-          timer={10}
-        />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "5%",
-        }}
-      >
-        <Divider
-          orientation="vertical"
+    >
+      {
+        (isMobile && open) ? (
+          <Dialog
+            fullScreen
+            open={open}
+            onClose={() => setOpen(false)}
+            TransitionComponent={Transition}
+            sx={{
+              ...styles.dialogExperience
+            }}
+          >
+            <AppBar sx={{
+              ...styles.appBarExperience
+            }}>
+              <Toolbar
+                sx={{
+                  justifyContent: "space-between"
+                }}
+              >
+                <IconButton
+                  edge="start"
+                  onClick={() => setOpen(false)}
+                  aria-label="close"
+                >
+                  <CloseIcon sx={{ color: theme.palette.text.secondary }} />
+                </IconButton>
+                <Box>
+                  <Button
+                    sx={{
+                      color: theme.palette.text.secondary
+                    }}
+                    onClick={handleLanguageChange}>
+                    {language === "pt-BR" ? "PT" : "EN"}
+                  </Button>                
+                  <IconButton color="inherit" onClick={() => {
+                    handleThemeChange()
+                  }} sx={{ color: theme.palette.text.primary }}>
+                    {darkMode ? <LightModeIcon sx={{ color: theme.palette.text.secondary }} />
+                      :
+                      <DarkModeIcon sx={{ color: theme.palette.text.secondary }} />}
+                  </IconButton>
+                </Box>
+              </Toolbar>
+            </AppBar>
+            <List>
+              <TextTyping
+                text={translate(`about.text`)}
+                styleContainer={styles.textTypingContainer}
+                styleText={styles.text}
+                timer={10}
+              />
+            </List>
+          </Dialog>
+
+        ) : (
+          !isMobile &&
+          <Box
+            sx={{
+              ...styles.boxTextTyping,
+            }}
+          >
+            <TextTyping
+              text={translate(`about.text`)}
+              styleContainer={styles.textTypingContainer}
+              styleText={styles.text}
+              timer={10}
+            />
+          </Box>
+        )
+      }
+      {!isMobile &&
+        <Box
           sx={{
-            position: "absolute",
-            top: 10,
-            bottom: 0,
-            backgroundColor: theme.palette.divider,
-            borderRight: "1px dashed rgba(0, 0, 0, 0.12)",
-            zIndex: 0,
+            ...styles.boxDivider,
           }}
-        />
-      </Box>
+        >
+          <Divider
+            orientation="vertical"
+            sx={{
+              ...styles.divider,
+            }}
+          />
+        </Box>
+      }
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "37%",
-          flexDirection: "column",
+          ...styles.boxAvatarAndImageSlider,
         }}
       >
         <Box
           sx={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            width: "100%",
-            padding: 2,
+            ...styles.boxAvatar,
           }}
         >
           <Stack
@@ -121,19 +226,12 @@ export const About = () => {
             justifyContent="center"
             alignItems="center"
             sx={{
-              border: "2px solid",
-              borderColor: theme.palette.divider,
-              borderRadius: 2,
-              padding: 2,
+              ...styles.StackAvatar,
             }}
           >
             <Avatar
               sx={{
-                width: 260,
-                height: 260,
-                border: "1px solid",
-                position: "relative", // Garante que não seja afetado pela opacidade do pai
-                zIndex: 10, // Deixa o Avatar visível
+                ...styles.Avatar,
               }}
               src={avatar}
             />
@@ -141,18 +239,24 @@ export const About = () => {
         </Box>
         <Box
           sx={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            transition: "all 0.3s ease",
-            width: "100%",
-            position: "relative", // Garante que o ImageSlider não fique transparente            
+            ...styles.boxImageSlider,
           }}
         >
-          <ImageSlider images={listCarousel} />
+          <ImageSlider 
+          images={listCarousel.map(item => item.image) }
+          text={listCarousel.map(item => item.text)}
+          />
         </Box>
+        {isMobile &&
+          <Button
+            onClick={handleExperienceCardClick}
+            sx={{
+              ...styles.buttonExperience
+            }}
+          >
+            {language === "pt-BR" ? "Sobre Mim" : "About Me"}
+          </Button>
+        }
       </Box>
     </Box>
   );

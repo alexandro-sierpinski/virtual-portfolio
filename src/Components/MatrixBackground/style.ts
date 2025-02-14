@@ -5,7 +5,8 @@ export const getMatrixBackgroundStyles = () => ({
     left: 0,
     width: "100%",
     height: "100%",
-    zIndex: -1, // Para garantir que o canvas fique atrás de outros elementos        
+    zIndex: -1, // Para garantir que o canvas fique atrás de outros elementos     
+    overflow: "hidden",
   },
   canvas: {
     display: "block",

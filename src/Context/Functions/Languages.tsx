@@ -67,7 +67,7 @@ export const Languages: ILanguages = {
                     "name": "Consisa Sistemas",
                     "duration": "fevereiro de 2019 - março de 2022",
                     "keyCompany": "consisaTI",
-                    "logo": "https://www.consisa.com.br/wp-content/uploads/sites/2/2024/09/Logo-Consisa-Sistemas-2-300x181.png"
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
                 },
                 "consisaDevelopment": {
                     "textTyping":
@@ -82,9 +82,55 @@ export const Languages: ILanguages = {
                     "name": "Consisa Sistemas",
                     "duration": "março de 2022 - novembro de 2024",
                     "keyCompany": "consisaDevelopment",
-                    "logo": "https://www.consisa.com.br/wp-content/uploads/sites/2/2024/09/Logo-Consisa-Sistemas-2-300x181.png"
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
                 },
                 "parseint": {
+                    "textTyping":
+                    "__nome: Parseint \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: janeiro de 2024 - outubro de 2024 \n" +
+                    "_cargo: Desenvolvedor Full Stack \n" +
+                    "_palavras-chave: [Java, React, Javascript, Material-UI, PostgreSQL, MongoDB, JUnit, Hibernate, Electron] \n" +
+                    "_descricao-cargo: Desenvolvimento de sistema PDV online e Gerencial para varejo online. \n" +
+                        "A principal linguagem era Java, usavamos o framework React com Material UI. \n" +
+                        "O banco de dados era o PostgreSQL, mas também era usado o MongoDB para algumas coisas. \n" +
+                        "Para teste unitário era usado o JUnit. O ORM era o Hibernate. Também usei Electron para \n" +
+                        "criar um app local para fazer o gerenciamento de catracas para restaurantes.",
+                    "name": "Parseint",
+                    "duration": "janeiro de 2024 - outubro de 2024",
+                    "keyCompany": "parseint",
+                    "logo": "https://parseint.com.br/static/media/logo.c9067a5541d1ff26d8e6.png"
+                },
+                "consisaTI2":{
+                    "textTyping":
+                    "__nome: Consisa Sistemas \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: fevereiro de 2019 - março de 2022 \n" +
+                    "_cargo: TI de infra e redes \n" +
+                    "_palavras-chave: [Infra, Redes, Cloud, bluepex] \n" +
+                    "_descricao-cargo: Fazia manutenção e suporte de infra e redes. Logo após um tempo, \n" +
+                        "foi migrado para cloud, onde ajudava a configurar e manter o ambiente.",
+                    "name": "Consisa Sistemas",
+                    "duration": "fevereiro de 2019 - março de 2022",
+                    "keyCompany": "consisaTI",
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
+                },
+                "consisaDevelopment2": {
+                    "textTyping":
+                    "__nome: Consisa Sistemas \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: março de 2022 - novembro de 2024 \n" +
+                    "_cargo: Desenvolvedor Full Stack \n" +
+                    "_palavras-chave: [delphi, Firebird, ERP, PAF-ECF, faturamento, transporte] \n" +
+                    "_descricao-cargo: Desenvolvimento de sistema ERP contábil, onde meu foco era mais no modulo de faturamento, \n" +
+                        "e modulo transporte e por um tempo fiquei no PAF-ECF. A principal linguagem era delphi, e o banco de dados \n" +
+                        "era o Firebird.",
+                    "name": "Consisa Sistemas",
+                    "duration": "março de 2022 - novembro de 2024",
+                    "keyCompany": "consisaDevelopment",
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
+                },
+                "parseint2": {
                     "textTyping":
                     "__nome: Parseint \n" +
                     "_localizacao: Francisco Beltrão - PR \n" +
@@ -164,7 +210,7 @@ export const Languages: ILanguages = {
                     "name": "Consisa Sistemas",
                     "duration": "february 2019 - march 2022",
                     "keyCompany": "consisaTI",
-                    "logo": "https://www.consisa.com.br/wp-content/uploads/sites/2/2024/09/Logo-Consisa-Sistemas-2-300x181.png"
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
                 },
                 "consisaDevelopment": {
                     "textTyping":
@@ -179,7 +225,7 @@ export const Languages: ILanguages = {
                     "name": "Consisa Sistemas",
                     "duration": "march 2022 - november 2024",
                     "keyCompany": "consisaDevelopment",
-                    "logo": "https://www.consisa.com.br/wp-content/uploads/sites/2/2024/09/Logo-Consisa-Sistemas-2-300x181.png"
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
                 },
 
                 "parseint": {
@@ -196,6 +242,52 @@ export const Languages: ILanguages = {
                         "create a local app to manage restaurant access control.",
                     "name": "Parseint",
                     "duration": "january 2024 - october 2024",
+                    "keyCompany": "parseint",
+                    "logo": "https://parseint.com.br/static/media/logo.c9067a5541d1ff26d8e6.png"
+                },
+                "consisaTI2":{
+                    "textTyping":
+                    "__nome: Consisa Sistemas \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: fevereiro de 2019 - março de 2022 \n" +
+                    "_cargo: TI de infra e redes \n" +
+                    "_palavras-chave: [Infra, Redes, Cloud, bluepex] \n" +
+                    "_descricao-cargo: Fazia manutenção e suporte de infra e redes. Logo após um tempo, \n" +
+                        "foi migrado para cloud, onde ajudava a configurar e manter o ambiente.",
+                    "name": "Consisa Sistemas",
+                    "duration": "fevereiro de 2019 - março de 2022",
+                    "keyCompany": "consisaTI",
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
+                },
+                "consisaDevelopment2": {
+                    "textTyping":
+                    "__nome: Consisa Sistemas \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: março de 2022 - novembro de 2024 \n" +
+                    "_cargo: Desenvolvedor Full Stack \n" +
+                    "_palavras-chave: [delphi, Firebird, ERP, PAF-ECF, faturamento, transporte] \n" +
+                    "_descricao-cargo: Desenvolvimento de sistema ERP contábil, onde meu foco era mais no modulo de faturamento, \n" +
+                        "e modulo transporte e por um tempo fiquei no PAF-ECF. A principal linguagem era delphi, e o banco de dados \n" +
+                        "era o Firebird.",
+                    "name": "Consisa Sistemas",
+                    "duration": "março de 2022 - novembro de 2024",
+                    "keyCompany": "consisaDevelopment",
+                    "logo": "https://images2.imgbox.com/b1/50/nDqnu3l8_o.png"
+                },
+                "parseint2": {
+                    "textTyping":
+                    "__nome: Parseint \n" +
+                    "_localizacao: Francisco Beltrão - PR \n" +
+                    "_duracao: janeiro de 2024 - outubro de 2024 \n" +
+                    "_cargo: Desenvolvedor Full Stack \n" +
+                    "_palavras-chave: [Java, React, Javascript, Material-UI, PostgreSQL, MongoDB, JUnit, Hibernate, Electron] \n" +
+                    "_descricao-cargo: Desenvolvimento de sistema PDV online e Gerencial para varejo online. \n" +
+                        "A principal linguagem era Java, usavamos o framework React com Material UI. \n" +
+                        "O banco de dados era o PostgreSQL, mas também era usado o MongoDB para algumas coisas. \n" +
+                        "Para teste unitário era usado o JUnit. O ORM era o Hibernate. Também usei Electron para \n" +
+                        "criar um app local para fazer o gerenciamento de catracas para restaurantes.",
+                    "name": "Parseint",
+                    "duration": "janeiro de 2024 - outubro de 2024",
                     "keyCompany": "parseint",
                     "logo": "https://parseint.com.br/static/media/logo.c9067a5541d1ff26d8e6.png"
                 },

@@ -58,16 +58,7 @@ export const TextTyping = (props: Props) => {
 
   return (
     <Box sx={{
-      ...props.styleContainer ? props.styleContainer : styles.container,
-      transition: "all 0.3s ease",      
-      padding: 2,
-      borderRadius: 0,
-      flex: 1,
-      display: "flex",
-      flexDirection: "column",
-      position: "relative",
-      overflow: "hidden",      
-      touchAction: "manipulation",  
+      ...props.styleContainer ? props.styleContainer : styles.container,        
     }}>
       <Typography
         component="main"

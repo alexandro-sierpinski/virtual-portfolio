@@ -14,7 +14,11 @@ export const getIntroTypingStyles = (theme: Theme) => ({
     fontWeight: "bold",
     textAlign: "center",
     transition: "background-color 0.3s ease-in-out",
-    overflow: "visible",
+    overflow: "visible",    
+    padding: 2,
+    borderRadius: 0,
+    flexDirection: "column",
+    touchAction: "manipulation",
   } as CSSProperties,
 
   text: {
@@ -33,7 +37,7 @@ export const getIntroTypingStyles = (theme: Theme) => ({
     width: "12px",
     height: "26px",
     backgroundColor: theme.palette.text.secondary,
-    marginLeft: "5px",    
+    marginLeft: "5px",
     transition: "opacity 0.3s ease-in-out",
   } as CSSProperties,
 

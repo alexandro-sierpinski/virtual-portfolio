@@ -8,7 +8,7 @@ import { FunctionsProvider } from './Context/Functions/Functions.tsx'
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <FunctionsProvider>
-      <ThemeProvider>
+      <ThemeProvider>        
         <App />
       </ThemeProvider>
     </FunctionsProvider>

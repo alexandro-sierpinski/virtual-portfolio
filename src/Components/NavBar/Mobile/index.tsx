@@ -7,6 +7,7 @@ import { ThemeContext } from "../../../Context/Theme/Theme"
 import { useContext } from "react"
 import { FunctionsContext } from "../../../Context/Functions/Functions"
 import { useNavigate } from "react-router-dom"
+import { getNavBarMobileStyles } from "./style"
 
 export const NavBarMobile = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -21,6 +22,8 @@ export const NavBarMobile = () => {
     setLanguage: (language: string) => void
     translate: (key: string) => string
   }
+
+  const styles = getNavBarMobileStyles(theme)
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (event.type === "keydown" && ((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")) {
@@ -64,18 +67,18 @@ export const NavBarMobile = () => {
         position="sticky"
         color="primary"
         sx={{
-          height: "50px",
-          boxShadow: "none",
-          borderBottom: `1px solid ${theme.palette.divider}`,
-          backgroundColor: darkMode ? "transparent" : theme.palette.background.default,
-          transition: "all 0.3s ease",
+          ...styles.appBar
         }}
       >
-        <Toolbar sx={{ height: "100%", justifyContent: "space-between", alignItems: "center", minHeight: "50px" }}>
+        <Toolbar sx={{
+          ...styles.toolbar
+        }}>
           <IconButton color="inherit" onClick={toggleDrawer(true)} sx={{ color: theme.palette.text.primary }}>
             <MenuIcon />
           </IconButton>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{
+            ...styles.boxIconTheme
+          }}>
             <IconButton color="inherit" onClick={() => {
               handleThemeChange()
             }} sx={{ color: theme.palette.text.primary }}>
@@ -85,15 +88,16 @@ export const NavBarMobile = () => {
         </Toolbar>
       </AppBar>
 
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        sx={{
+          ...styles.drawer
+        }}>
         <Box
           sx={{
-            width: 250,
-            backgroundColor: theme.palette.background.default,
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            ...styles.boxDrawer
           }}
           role="presentation"
           onClick={toggleDrawer(false)}
@@ -109,38 +113,28 @@ export const NavBarMobile = () => {
               </ListItem>
             ))}
           </List>
-          <Box 
-          component="footer"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",            
-          }}>
+          <Box
+            component="footer"
+            sx={{
+              ...styles.boxDrawerFooter
+            }}>
             <IconButton
               color="inherit"
               onClick={handleLanguageChange} // Não fecha o Drawer
               sx={{
-                borderRadius: "3px",
-                width: "90%",
-                marginBottom: "10px",
-                color: theme.palette.text.primary,
-                backgroundColor: theme.palette.primary.main,
-                '&:hover': {
-                  backgroundColor: theme.palette.primary.dark, // Cor do hover
-                },
-                '&:active': {
-                  backgroundColor: theme.palette.primary.dark, // Cor ao clicar
-                },
-                '&:focus': {
-                  backgroundColor: theme.palette.primary.main, // Cor do foco
-                },
+                ...styles.iconButtonDrawer
               }}
             >
-              <Typography sx={{ color: theme.palette.text.primary }}>{language === "pt-BR" ? "PT" : "EN"}</Typography>
+              <Typography
+                sx={{
+                  color: theme.palette.text.primary
+                }}>
+                {language === "pt-BR" ? "PT" : "EN"}
+              </Typography>
             </IconButton>
           </Box>
         </Box>
-      </Drawer>
+      </Drawer >
     </>
   )
 }

@@ -3,14 +3,15 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { getButtonStyles } from "./style";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../Context/Theme/Theme"; // Importing the ThemeContext
 import { FunctionsContext } from "../../../Context/Functions/Functions";
 
 export const NavBarDesktop = () => {
-    const { theme, setDarkMode } = useContext(ThemeContext) as {
+    const { theme, setDarkMode, darkMode } = useContext(ThemeContext) as {
         theme: any;
         setDarkMode: (darkMode: boolean) => void;
+        darkMode: boolean;
     };
     const { translate, language, setLanguage } = useContext(FunctionsContext) as {
         translate: (key: string) => string;
@@ -20,9 +21,6 @@ export const NavBarDesktop = () => {
 
     const buttonStyles = getButtonStyles(theme);
     const navigate = useNavigate();
-
-    // Definindo o estado local para darkMode
-    const [darkMode, setDarkModeLocal] = useState<boolean>(false);
 
     const handleButtonClick = (text: string) => {
         const pageMap = {
@@ -47,9 +45,9 @@ export const NavBarDesktop = () => {
 
     useEffect(() => {
         // Lê o valor de darkMode do localStorage ao montar o componente
-        const savedDarkMode = localStorage.getItem("darkMode");
+        const savedDarkMode = localStorage.getItem("darkMode")
         if (savedDarkMode !== null) {
-            setDarkModeLocal(savedDarkMode === "true");
+            setDarkMode(savedDarkMode === "true");
         }
     }, []);
 
@@ -111,7 +109,7 @@ export const NavBarDesktop = () => {
                             "&:hover": buttonStyles.hover,
                         }}
                         color="inherit"
-                        onClick={() => setDarkModeLocal(!darkMode)}
+                        onClick={() => setDarkMode(!darkMode)}
                     >
                         {darkMode ? <LightModeIcon style={buttonStyles.firstSpan} /> : <DarkModeIcon style={buttonStyles.firstSpan} />}
                     </Button>

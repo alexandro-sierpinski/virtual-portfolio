@@ -3,12 +3,6 @@ import { Theme } from "@mui/material/styles"
 
 export const getPageStyles = (theme: Theme) => ({
   base: {
-    position: "relative",
-    overflow: "hidden",
-    borderRadius: "0px",
-    color: theme.palette.text.primary, // 🔥 Pega do theme
-    background: theme.palette.background.default, // 🔥 Fundo adaptável ao tema
-    touchAction: "manipulation",
     transition: "all 0.3s ease",
   } as CSSProperties,
 
@@ -38,7 +32,6 @@ export const getPageStyles = (theme: Theme) => ({
     left: 0,
     width: "100%",
     height: "30%", // 🔥 Ajuste para 30%
-    backgroundColor: theme.palette.background.default, // 🔥 Adaptável ao tema
     transformOrigin: "bottom center",
     transition: "transform 600ms cubic-bezier(0.48, 0, 0.12, 1)",
     transform: "skewY(9.3deg) scaleY(0)",
