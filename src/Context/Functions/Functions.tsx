@@ -48,8 +48,8 @@ export const FunctionsProvider = ({ children }: FunctionsProviderProps) => {
 
   // Função para buscar as empresas
   const getCompanies = () => {
-    if (languages && languages.experience) {
-      return languages.experience.companies
+    if (languages && languages.pages.experience) {
+      return languages.pages.experience.companies
     }
     return null
   }

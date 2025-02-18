@@ -77,7 +77,7 @@ export const Experience = () => {
         }}
           variant="h1"
           gutterBottom>
-          { isMobile ? (language === "pt-BR" ? "Meu XP" : "My XP") : translate(`experience.title`)}
+          { isMobile ? (language === "pt-BR" ? "Meu XP" : "My XP") : translate(`pages.experience.title`)}
         </Typography>
       </Box>
       <Box sx={{
